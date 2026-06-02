@@ -30,6 +30,7 @@ members = [
     "crates/test-utils/",
     "crates/cli-markdown/",
     "crates/tui/",
+    "crates/gas-guardian/",
 ]
 resolver = "2"
 

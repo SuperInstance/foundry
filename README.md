@@ -93,4 +93,43 @@ for inclusion in these crates by you, as defined in the Apache-2.0 license,
 shall be dual licensed as above, without any additional terms or conditions.
 </sub>
 
+## 🏆 SuperInstance Enhancement — Gas Guardian
+
+Your smart contract deployment cost **4.7 ETH**. The `O(n²)` loop in `transferFrom()`
+cost **12× more** than the `O(n)` version.
+
+### Gas regression
+
+| Commit | `transferFrom()` gas | vs baseline |
+|--------|---------------------|-------------|
+| `a3f2` | 45,000              | 1×          |
+| `b7c1` | 540,000             | 12×         |
+
+**12× increase caught before mainnet.**
+
+### AH-HA
+
+The "small optimization" replaced a `mapping` lookup with an array scan.
+Gas Guardian caught it.
+
+### Conservation
+
+Each deployment declares a total gas budget. When one contract eats **>80%**
+of that budget, Gas Guardian emits a warning — before you pay the price on
+chain.
+
+### Usage
+
+```sh
+# Compare two commits for gas regressions
+forge snapshot --diff a3f2..b7c1
+
+# Check budget conservation
+forge check-gas-budget --budget 5000000
+```
+
+For developer docs, see the [`gas-guardian` crate](./crates/gas-guardian/).
+
+---
+
 [foundry-docs]: https://getfoundry.sh

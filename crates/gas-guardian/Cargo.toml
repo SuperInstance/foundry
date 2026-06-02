@@ -1,0 +1,15 @@
+[package]
+name = "gas-guardian"
+version = "0.1.0"
+edition.workspace = true
+description = "Gas budget enforcement and conservation analysis for Foundry deployments"
+license.workspace = true
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true
