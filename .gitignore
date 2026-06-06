@@ -21,3 +21,5 @@ _
 .vite
 .wrangler
 *.zip
+target/
+Cargo.lock
